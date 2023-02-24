@@ -1,9 +1,9 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{values.component_id | dump}}
-  description: ${{values.description | dump}}
+  name: ${{values.component_id}}
+  description: ${{values.description}}
 spec:
   type: folder
   lifecycle: experimental
-  owner: ${{values.owner | dump}}
+  owner: ${{values.owner}}
