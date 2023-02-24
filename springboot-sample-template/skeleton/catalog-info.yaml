@@ -1,8 +1,8 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{values.component_id}}
-  description: ${{values.description}}
+  name: Sample Spring Boot Template
+  description: A template for creating a new Spring Boot application
 spec:
   type: folder
   lifecycle: experimental
