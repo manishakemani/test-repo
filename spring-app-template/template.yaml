@@ -28,17 +28,22 @@ spec:
           description: Help others understand what this website is for.
     - title: Choose a location
       required:
-        - repoUrl
+        - repoName
       properties:
-        repoUrl:
+        repoName:
           title: Repository Location
           type: string
-          ui:field: RepoUrlPicker
+          ui:field: EntityNamePicker
+        repoOwner: 
+          title: Owner
+          type: string
+          description: Owner of the repository
+          ui:field: OwnerPicker
           ui:options:
-            allowedHosts:
-              - github.com
-            allowedOwners:
-              - guests
+            catalogFilter:
+              kind: [Group]
+
+
 
   steps:
     - id: template
@@ -55,6 +60,7 @@ spec:
           java_package_name: ${{ parameters.component_id }}
           service_name: 'dmta-microservice-${{ parameters.component_id }}'
           destination: ${{ parameters.component_id }}
+          owner: ${{ parameters.repoOwner }}
           http_port: 8080
 
     - id: publish
@@ -63,7 +69,7 @@ spec:
       input:
         allowedHosts: ["github.com"]
         description: This is dmta-microservice-${{ parameters.component_id }}
-        repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=dmta-microservice-${{ parameters.repoName }}
         repoVisibility: 'public'
 
     - id: register
