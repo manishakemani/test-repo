@@ -38,10 +38,15 @@ spec:
           title: Owner
           type: string
           description: Owner of the repository
-          ui:field: OwnerPicker
-          ui:options:
-            catalogFilter:
-              kind: [Group]
+          default: az-ai
+          enum:
+            - az-ai
+            - az-soft-eng
+            - az-data-eng
+            - AZ-AI-test
+            - az-scp
+            - RDIT-DPS
+            - AstraZeneca-CGR
 
 
 
@@ -70,7 +75,7 @@ spec:
         allowedHosts: ["github.com"]
         description: This is dmta-microservice-${{ parameters.component_id }}
         repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=dmta-microservice-${{ parameters.repoName }}
-        repoVisibility: 'public'
+        
 
     - id: register
       name: Register
