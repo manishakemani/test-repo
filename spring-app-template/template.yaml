@@ -30,25 +30,15 @@ spec:
       required:
         - repoName
       properties:
-        repoName:
+        repoUrl:
           title: Repository Location
           type: string
-          ui:field: EntityNamePicker
-        repoOwner: 
-          title: Owner
-          type: string
-          description: Owner of the repository
-          default: az-ai
-          enum:
-            - az-ai
-            - az-soft-eng
-            - az-data-eng
-            - AZ-AI-test
-            - az-scp
-            - RDIT-DPS
-            - AstraZeneca-CGR
-
-
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - az-soft-end/dmta
 
   steps:
     - id: template
