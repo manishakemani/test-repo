@@ -28,7 +28,7 @@ spec:
           description: Help others understand what this website is for.
     - title: Choose a location
       required:
-        - repoName
+        - repoUrl
       properties:
         repoUrl:
           title: Repository Location
@@ -64,7 +64,7 @@ spec:
       input:
         allowedHosts: ["github.com"]
         description: This is dmta-microservice-${{ parameters.component_id }}
-        repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=dmta-microservice-${{ parameters.repoName }}
+        repoUrl: ${{ parameters.repoUrl }}
         
 
     - id: register
