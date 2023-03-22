@@ -2,7 +2,7 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: springboot-template
-  title: DMTA Spring Boot Service
+  title: DMTA Spring Boot Service (org)
   description: Create a simple microservice using Spring Boot Java
   tags:
     - java
@@ -28,17 +28,27 @@ spec:
           description: Help others understand what this website is for.
     - title: Choose a location
       required:
-        - repoUrl
+        - repoName
       properties:
-        repoUrl:
+        repoName:
           title: Repository Location
           type: string
-          ui:field: RepoUrlPicker
-          ui:options:
-            allowedHosts:
-              - github.com
-            allowedOwners:
-              - az-soft-eng/dmta
+          ui:field: EntityNamePicker
+        repoOwner: 
+          title: Owner
+          type: string
+          description: Owner of the repository
+          default: az-ai
+          enum:
+            - az-ai
+            - az-soft-eng
+            - az-data-eng
+            - AZ-AI-test
+            - az-scp
+            - RDIT-DPS
+            - AstraZeneca-CGR
+
+
 
   steps:
     - id: template
@@ -64,7 +74,7 @@ spec:
       input:
         allowedHosts: ["github.com"]
         description: This is dmta-microservice-${{ parameters.component_id }}
-        repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=dmta-microservice-${{ parameters.repoName }}
         
 
     - id: register
