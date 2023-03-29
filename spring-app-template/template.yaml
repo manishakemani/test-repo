@@ -1,14 +1,14 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: springboot-template-org
-  title: DMTA Spring Boot Service (org)
+  name: springboot-template
+  title: DMTA Spring Boot Service
   description: Create a simple microservice using Spring Boot Java
   tags:
     - java
     - spring
 spec:
-  owner: manisha.kemani@astrazeneca.com
+  owner: az-soft-eng/dmta
   type: service
 
   parameters:
@@ -21,34 +21,34 @@ spec:
           title: Name
           type: string
           description: Unique name of the service
-          ui:field: EntityNamePicker
+          ui:field: ValidateRepoName
         description:
           title: Description
           type: string
           description: Help others understand what this website is for.
-    - title: Choose a location
+    - title: Choose a repository location
       required:
-        - repoName
+        - repoUrl
       properties:
-        repoName:
+        repoUrl:
           title: Repository Location
           type: string
-          ui:field: EntityNamePicker
-        repoOwner: 
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+            allowedOwners:
+              - az-soft-eng
+              - az-data-eng
+    - title: Choose repository owner
+      required:
+        - repoOwner
+      properties:
+        repoOwner:
           title: Owner
           type: string
-          description: Owner of the repository
-          default: az-ai
-          enum:
-            - az-ai
-            - az-soft-eng
-            - az-data-eng
-            - AZ-AI-test
-            - az-scp
-            - RDIT-DPS
-            - AstraZeneca-CGR
-
-
+          description: Owner of the repo
+          default: az-soft-eng/dmta
 
   steps:
     - id: template
@@ -66,6 +66,7 @@ spec:
           service_name: 'dmta-microservice-${{ parameters.component_id }}'
           destination: ${{ parameters.component_id }}
           owner: ${{ parameters.repoOwner }}
+          name: ${{ parameters.repoName }}
           http_port: 8080
 
     - id: publish
@@ -74,8 +75,8 @@ spec:
       input:
         allowedHosts: ["github.com"]
         description: This is dmta-microservice-${{ parameters.component_id }}
-        repoUrl: github.com?owner=${{ parameters.repoOwner }}&repo=dmta-microservice-${{ parameters.repoName }}
-        
+        repoUrl: ${{ parameters.repoUrl }}
+        repoVisibility: 'internal'
 
     - id: register
       name: Register
